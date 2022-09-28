@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import UploadFile from './components/UploadFile';
 
@@ -21,9 +21,20 @@ function App() {
     fileReader.readAsText(e.target.files[0]);
   };
 
+  useEffect(() => {
+    if (updatedCsv?.length > 0) {
+      // get name of order item [shoes,knife,...]
+      const getOrderItem = updatedCsv?.map((order) => order[2]);
+
+      // handle and filter duplicated order items
+    }
+  }, [updatedCsv]);
+
   return (
     <div className='App'>
-      <UploadFile handleOnChange={handleOnChange} />
+      <h1>CSV filter order generator</h1>
+
+      <UploadFile file={file} handleOnChange={handleOnChange} />
     </div>
   );
 }

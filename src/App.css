@@ -84,3 +84,22 @@
   padding: 12px 20px;
   border-radius: 4px;
 }
+
+.csv-files-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.csv-file {
+  text-decoration: none;
+  font-size: 20;
+  color: #000;
+  margin: 20px 0px;
+}
+
+.csv-file:hover {
+  text-decoration: underline;
+}

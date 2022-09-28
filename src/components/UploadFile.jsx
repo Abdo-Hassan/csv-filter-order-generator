@@ -1,29 +1,42 @@
 import React from 'react';
+import { CSVLink } from 'react-csv';
 
-const UploadFile = ({ handleOnChange }) => {
+const UploadFile = ({ handleOnChange, file }) => {
   return (
-    <div className='App'>
-      <h1>CSV filter order generator</h1>
+    <div className='container'>
+      <div className='card'>
+        <div className='drop_box'>
+          <header>
+            <h4>Upload File here</h4>
+          </header>
+          <p>Files Supported: CSV</p>
 
-      <div className='container'>
-        <div className='card'>
-          <div className='drop_box'>
-            <header>
-              <h4>Upload File here</h4>
-            </header>
-            <p>Files Supported: CSV</p>
+          <label className='btn'>
+            Choose File
+            <input
+              hidden
+              type='file'
+              id='csvFileInput'
+              accept='.csv'
+              onChange={handleOnChange}
+            />
+          </label>
 
-            <label className='btn'>
-              Choose File
-              <input
-                hidden
-                type='file'
-                id='csvFileInput'
-                accept='.csv'
-                onChange={handleOnChange}
-              />
-            </label>
-          </div>
+          {file && (
+            <div className='csv-files-wrapper'>
+              <CSVLink
+                data={[]}
+                filename={`0_${file?.name}`}
+                separator={','}
+                className='csv-file'>{`0_${file?.name}`}</CSVLink>
+
+              <CSVLink
+                data={[]}
+                separator={','}
+                className='csv-file'
+                filename={`1_${file?.name}`}>{`1_${file?.name}`}</CSVLink>
+            </div>
+          )}
         </div>
       </div>
     </div>
