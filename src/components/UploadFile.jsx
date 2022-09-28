@@ -1,7 +1,13 @@
 import React from 'react';
 import { CSVLink } from 'react-csv';
 
-const UploadFile = ({ handleOnChange, file }) => {
+const UploadFile = ({
+  handleOnChange,
+  file,
+  commonOrderItem,
+  averagePerOrder,
+  commonOrderBrand,
+}) => {
   return (
     <div className='container'>
       <div className='card'>
@@ -25,13 +31,13 @@ const UploadFile = ({ handleOnChange, file }) => {
           {file && (
             <div className='csv-files-wrapper'>
               <CSVLink
-                data={[]}
+                data={[[commonOrderItem, averagePerOrder]]}
                 filename={`0_${file?.name}`}
                 separator={','}
                 className='csv-file'>{`0_${file?.name}`}</CSVLink>
 
               <CSVLink
-                data={[]}
+                data={[[commonOrderItem, commonOrderBrand]]}
                 separator={','}
                 className='csv-file'
                 filename={`1_${file?.name}`}>{`1_${file?.name}`}</CSVLink>

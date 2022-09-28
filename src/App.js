@@ -72,11 +72,45 @@ function App() {
     }
   }, [updatedCsv]);
 
+  useEffect(() => {
+    if (commonOrderItem) {
+      // get total of orders
+      const totalOrders = updatedCsv?.length;
+
+      // filter with common duplicate order item
+      const filterOrders = updatedCsv?.filter(
+        (order) => order[2] === commonOrderItem
+      );
+
+      // get name of order item brand [Air , Puma,....]
+      const getOrderBrand = filterOrders?.map((order) => order[4]);
+
+      // handle and filter duplicated order items
+      filterOrderItems('commonBrand', getOrderBrand);
+
+      // total quantity of the item
+      const totalQuantityOfItem = filterOrders
+        ?.map((item) => item[3])
+        .reduce(function (accumulator, currentValue) {
+          return accumulator + Number(currentValue);
+        }, 0);
+
+      const averagePerOrder = totalQuantityOfItem / totalOrders;
+      setAveragePerOrder(averagePerOrder);
+    }
+  }, [updatedCsv, commonOrderItem]);
+
   return (
     <div className='App'>
       <h1>CSV filter order generator</h1>
 
-      <UploadFile file={file} handleOnChange={handleOnChange} />
+      <UploadFile
+        file={file}
+        handleOnChange={handleOnChange}
+        commonOrderItem={commonOrderItem}
+        averagePerOrder={averagePerOrder}
+        commonOrderBrand={commonOrderBrand}
+      />
     </div>
   );
 }
