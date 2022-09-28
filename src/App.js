@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import UploadFile from './components/UploadFile';
 
 function App() {
+  const [file, setFile] = useState();
+  const [updatedCsv, setUpdatedCsv] = useState([]);
+
+  const handleOnChange = (e) => {
+    setFile(e.target.files[0]);
+    const fileReader = new FileReader();
+    fileReader.onload = function (event) {
+      const csvOutput = event.target.result;
+      const convertArr = csvOutput
+        .split('\r')
+        .map((element) => element.split(','));
+
+      setUpdatedCsv(convertArr);
+    };
+
+    fileReader.readAsText(e.target.files[0]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <UploadFile handleOnChange={handleOnChange} />
     </div>
   );
 }
